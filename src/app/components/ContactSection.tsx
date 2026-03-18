@@ -60,7 +60,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ locale = 'es' }) => {
         sending: 'Enviando...',
         send: 'Enviar Mensaje',
         socialTitle: 'O encuentranos en:',
-        directEmail: 'Email directo:',
       };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -180,9 +179,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ locale = 'es' }) => {
                 </a>
               ))}
             </div>
-            <p className="mt-6 text-brand-muted-text">
-              {text.directEmail} <a href="mailto:sebastianbhforjobs@gmail.com" className="text-brand-blue hover:underline">sebastianbhforjobs@gmail.com</a>
-            </p>
           </div>
         </div>
       </div>
