@@ -7,6 +7,7 @@ import "./globals.css";
 import { DynamicNavbar, DynamicFooter } from "./components/LayoutComponents";
 import FloatingWhatsAppButton from "./components/FloatingWhatsAppButton";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import CustomCursor from "./components/CustomCursor";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -164,6 +165,7 @@ export default function RootLayout({
         </div>
         <LanguageSwitcher />
         <FloatingWhatsAppButton />
+        <CustomCursor />
         <Analytics />
       </body>
     </html>
