@@ -50,7 +50,7 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
   const sectionHrefPrefix = isEnglish ? '/en' : '/';
 
   return (
-    <footer className="bg-gradient-to-b from-[#0D1117] to-[#0a0e13] border-t border-[#00E5FF]/20">
+    <footer className="bg-[#000412] border-t border-[#1e293b]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="lg:col-span-1">
@@ -67,12 +67,12 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
             <p className="text-gray-400 text-base leading-relaxed mb-4">
               {isEnglish
                 ? 'We transform ideas into digital reality. Web, mobile development and innovative technological solutions with AI.'
-                : 'Transformamos ideas en realidad digital. Desarrollo web, movil y soluciones tecnologicas innovadoras con IA.'}
+                : 'Desde la idea mas sin sentido hasta aplicaciones web empresariales, traemos todas tus ideas al mundo real.'}
             </p>
             <p className="text-gray-500 text-sm italic">
               {isEnglish
-                ? 'Over 2 years creating customized digital experiences.'
-                : 'Mas de 2 años creando experiencias digitales a la medida.'}
+                ? 'Over 2 years solving people issues.'
+                : 'Mas de 2 años solucionandole la vida a las personas.'}
             </p>
           </div>
 
@@ -135,7 +135,7 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
                 <p className="text-gray-400 text-base">{isEnglish ? 'Closed' : 'Cerrado'}</p>
               </li>
             </ul>
-            <div className="mt-6 p-4 bg-[#161B22] rounded-lg border border-[#00E5FF]/20">
+            <div className="mt-6 p-4 bg-[#0f1423] rounded-lg border border-[#1e293b]">
               <p className="text-sm text-gray-400">
                 {isEnglish
                   ? 'Guaranteed response in less than 24 hours'
@@ -173,7 +173,7 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
           </div>
         </div>
 
-        <div className="border-t border-[#00E5FF]/20 pt-8">
+        <div className="border-t border-[#1e293b] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
               <p className="text-sm text-gray-400">
@@ -181,8 +181,8 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
               </p>
               <p className="text-xs text-gray-500 mt-1">
                 {isEnglish
-                  ? 'Designed and developed clearly by Ashenvell'
-                  : 'Diseñado y desarrollado claramente por Ashenvell'}
+                  ? 'Obviously Ashenvell made this website'
+                  : 'Obviamente Ashenvell hizo esta página'}
               </p>
             </div>
 
