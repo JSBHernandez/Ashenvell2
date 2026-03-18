@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Exo_2, Roboto_Mono } from "next/font/google";
+import { Space_Grotesk, Roboto_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
@@ -10,10 +10,10 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const exo2 = Exo_2({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ['300', '400', '500', '600', '700'],
-  variable: "--font-exo2",
+  variable: "--font-space-grotesk",
   display: 'swap',
   preload: true,
 });
@@ -119,7 +119,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="es" className={`${exo2.variable} ${robotoMono.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="es" className={`${spaceGrotesk.variable} ${robotoMono.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="bg-brand-dark text-brand-light-text antialiased selection:bg-brand-blue selection:text-white">
         {GA_ID && (
           <>

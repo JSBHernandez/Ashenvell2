@@ -1,76 +1,281 @@
-"use client"; // Para animaciones en scroll con Intersection Observer
+﻿"use client";
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import type { ServiceItem } from '@/types';
 import type { Locale } from '@/lib/i18n';
 
-// Iconos específicos para cada servicio
-const WebDevIcon = () => (
-  <svg className="w-12 h-12 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
+// --- Custom Hooks ---
+const useTypingEffect = (text: string, speed: number = 50) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
 
-const MobileIcon = () => (
-  <svg className="w-12 h-12 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-  </svg>
-);
+  useEffect(() => {
+    let i = 0;
+    let timer: NodeJS.Timeout;
+    let restartTimeout: NodeJS.Timeout;
+    
+    const startTyping = () => {
+      setDisplayedText(""); 
+      setIsComplete(false);
+      i = 0;
 
-const DesignIcon = () => (
-  <svg className="w-12 h-12 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-  </svg>
-);
+      timer = setInterval(() => {
+        if (i < text.length) {
+          setDisplayedText(text.substring(0, i + 1));
+          i++;
+        } else {
+          clearInterval(timer);
+          setIsComplete(true);
+          
+          restartTimeout = setTimeout(() => {
+            startTyping();
+          }, 3500);
+        }
+      }, speed);
+    };
 
-const AIIcon = () => (
-  <svg className="w-12 h-12 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-  </svg>
-);
+    const initialTimeout = setTimeout(startTyping, 500);
 
+    return () => {
+      clearTimeout(initialTimeout);
+      clearInterval(timer);
+      clearTimeout(restartTimeout);
+    };
+  }, [text, speed]);
 
-const serviceLinksEs: Record<string, string> = {
-  web: '/desarrollo-web',
-  mobile: '/aplicaciones-moviles',
-  uiux: '/diseno-ui-ux',
-  ai: '/soluciones-ia',
+  return { displayedText, isComplete };
 };
 
-const serviceLinksEn: Record<string, string> = {
-  web: '/en/web-development',
-  mobile: '/en/mobile-apps',
-  uiux: '/en/ui-ux-design',
-  ai: '/en/ai-solutions',
-};
+const MacControls = () => (
+  <div className="flex gap-1.5 mb-3">
+    <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+    <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+  </div>
+);
 
-const ServiceCard: React.FC<{
-  item: ServiceItem;
-  isVisible: boolean;
-  href: string;
-  ctaLabel: string;
-}> = ({ item, isVisible, href, ctaLabel }) => {
-  const IconComponent = item.id === 'web' ? WebDevIcon : item.id === 'mobile' ? MobileIcon : item.id === 'uiux' ? DesignIcon : AIIcon;
-  
+const WebAnimation = () => {
+  const code = `<div class="hero">\n  <h1>Ashenvell,</h1>\n  <h2>te amo.</h2>\n  <button>Deploy &rarr;</button>\n</div>`;
+  const { displayedText, isComplete } = useTypingEffect(code, 60);
+
   return (
-    <Link href={href} className="block">
-      <div
-        className={`bg-brand-dark-secondary p-8 rounded-xl shadow-xl hover:shadow-glow-blue transition-all duration-500 transform hover:-translate-y-2 cursor-pointer ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-      >
-        <div className="flex justify-center md:justify-start">
-          <IconComponent />
-        </div>
-        <h3 className="text-2xl font-semibold text-brand-blue-light mb-3 mt-2">{item.title}</h3>
-        <p className="text-brand-muted-text leading-relaxed">{item.description}</p>
-        <div className="mt-4 text-brand-blue hover:text-brand-blue-light transition-colors font-semibold">
-          {ctaLabel} →
+    <div className="flex flex-col lg:flex-row gap-4 w-full h-48 lg:h-56 mt-4">
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] font-mono text-xs overflow-hidden relative shadow-inner">
+        <MacControls />
+        <pre className="text-gray-300">
+          <code className="text-blue-400">
+            {displayedText.split('\n').map((line, i) => (
+              <span key={i} className="block"><span className="text-gray-600 mr-2 select-none">{i + 1}</span>{line}</span>
+            ))}
+            {!isComplete && <span className="inline-block w-2.5 h-4 bg-blue-500 animate-pulse align-middle ml-1"></span>}
+          </code>
+        </pre>
+      </div>
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] flex items-center justify-center relative overflow-hidden transition-all duration-700">
+        <div className="flex flex-col items-center text-center transition-opacity duration-500">
+          <h1 className="text-white font-bold text-xl mb-1">Ashenvell,</h1>
+          <h2 className="text-blue-400 font-semibold mb-4 text-sm">te amo.</h2>
+          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.6)]">Deploy &rarr;</button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
+const MobileAnimation = () => {
+  const code = `import { App } from 'react-native';\n\nconst View = () => (\n  <SafeArea>\n    <Widget />\n    <TabNav />\n  </SafeArea>\n);`;
+  const { displayedText, isComplete } = useTypingEffect(code, 50);
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-4 w-full h-48 lg:h-56 mt-4">
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] font-mono text-xs overflow-hidden relative shadow-inner">
+        <MacControls />
+        <pre className="text-gray-300">
+          <code className="text-purple-400">
+            {displayedText.split('\n').map((line, i) => (
+               <span key={i} className="block"><span className="text-gray-600 mr-2 select-none">{i + 1}</span>{line}</span>
+            ))}
+            {!isComplete && <span className="inline-block w-2.5 h-4 bg-purple-500 animate-pulse align-middle ml-1"></span>}
+          </code>
+        </pre>
+      </div>
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] flex items-center justify-center relative">
+        <div className="w-[70px] h-[140px] rounded-xl border-[4px] border-gray-700 p-1 flex flex-col gap-2 transition-all duration-700">
+          <div className="w-full h-2 rounded bg-gray-700 mx-auto"></div>
+          <div className="w-full flex-1 rounded bg-blue-900/30 overflow-hidden relative">
+             <div className="absolute top-2 w-full flex justify-center"><div className="w-8 h-8 rounded-full border-2 border-blue-500/50 animate-ping"></div></div>
+          </div>
+          <div className="w-full h-2 rounded bg-gray-700 mt-auto"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const UXAnimation = () => {
+  const code = `.grid-layout {\n  display: grid;\n  gap: 1rem;\n}\n\n.card:hover {\n  scale: 1.05;\n  glow: blue;\n}`;
+  const { displayedText, isComplete } = useTypingEffect(code, 40);
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-4 w-full h-48 lg:h-56 mt-4">
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] font-mono text-xs overflow-hidden relative shadow-inner">
+        <MacControls />
+        <pre className="text-gray-300">
+          <code className="text-cyan-400">
+            {displayedText.split('\n').map((line, i) => (
+              <span key={i} className="block"><span className="text-gray-600 mr-2 select-none">{i + 1}</span>{line}</span>
+            ))}
+            {!isComplete && <span className="inline-block w-2.5 h-4 bg-cyan-500 animate-pulse align-middle ml-1"></span>}
+          </code>
+        </pre>
+      </div>
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] flex items-center justify-center relative">
+        <div className="grid grid-cols-2 gap-2 w-full max-w-[150px] transition-all duration-700">
+           <div className="h-10 bg-gray-800 rounded opacity-60"></div>
+           <div className="h-10 bg-gray-800 rounded opacity-60"></div>
+           <div className="h-10 bg-cyan-900 border border-cyan-500 rounded scale-105 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+           <div className="h-10 bg-gray-800 rounded opacity-60"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AIAnimation = () => {
+  const code = `import { Agent } from 'ai-core';\n\nconst agent = new Agent();\nawait agent.train(data);\nconsole.log('Done');`;
+  const { displayedText, isComplete } = useTypingEffect(code, 40);
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-4 w-full h-48 lg:h-56 mt-4">
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] font-mono text-xs overflow-hidden relative shadow-inner">
+        <MacControls />
+        <pre className="text-gray-300">
+          <code className="text-green-400">
+             {displayedText.split('\n').map((line, i) => (
+              <span key={i} className="block"><span className="text-gray-600 mr-2 select-none">{i + 1}</span>{line}</span>
+            ))}
+            {!isComplete && <span className="inline-block w-2.5 h-4 bg-green-500 animate-pulse align-middle ml-1"></span>}
+          </code>
+        </pre>
+      </div>
+      <div className="flex-1 bg-[#090b14] rounded-xl p-4 border border-[#1e293b] flex items-center justify-center relative">
+        <div className="w-full text-xs font-mono text-gray-500 text-left px-2">
+           <p className="mb-1">{'>'} Processing prompt...</p>
+           <p className="text-green-400 mb-1 transition-opacity duration-1000">{'>'} Optimization complete ⚡</p>
+           <div className="bg-gray-800/50 p-2 rounded mt-2 border border-green-900 transition-all duration-1000 delay-300">
+             <span className="text-gray-300 block">def optimized():</span>
+             <span className="text-blue-300 block pl-4">return True</span>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+// --- Configuración de Datos ---
+type ServiceCodeType = 'web' | 'mobile' | 'uiux' | 'ai';
+
+type ServiceCustomItem = {
+  id: ServiceCodeType;
+  titleEsp: string;
+  titleEng: string;
+  descEsp: string;
+  descEng: string;
+  labelEsp: string;
+  labelEng: string;
+};
+
+const servicesData: ServiceCustomItem[] = [
+  {
+    id: 'web',
+    titleEsp: 'Aplicaciones & Páginas Web',
+    titleEng: 'Landings & Web',
+    descEsp: 'Aplicaciones y páginas web modernas, rápidas y escalables con los últimos frameworks.',
+    descEng: 'Modern Apps and Web Pages, fast and scalable with the latest frameworks.',
+    labelEsp: 'Desde .5M COP',
+    labelEng: 'Sites from  USD',
+  },
+  {
+    id: 'ai',
+    titleEsp: 'Agentes IA & Automatización',
+    titleEng: 'AI agents & Automation',
+    descEsp: 'Desligate de lo habitual y acelera procesos de negocio implementando flujos de inteligencia artificial y Agentes automatizados.',
+    descEng: 'Detach from the usual and speed up business processes by deploying artificial intelligence flows and Agents.',
+    labelEsp: 'Agentes IA y Automatización',
+    labelEng: 'AI Agents & Scripts',
+  },
+  {
+    id: 'uiux',
+    titleEsp: 'Diseño UI/UX',
+    titleEng: 'UI/UX Design',
+    descEsp: 'Interfaces que enamoran con un flujo de alta fidelidad 100% personalizados alejados de plantillas aburridas.',
+    descEng: 'Interfaces that spark love with zero boring templates and 100% customized workflows.',
+    labelEsp: 'Alta Fidelidad de Conversión',
+    labelEng: 'High-Fidelity Wireframing',
+  },
+  {
+    id: 'mobile',
+    titleEsp: 'Apps Móviles',
+    titleEng: 'Mobile Apps',
+    descEsp: 'iOS y Android. Apps nativas e híbridas de alto rendimiento que escalan conectando con tus clientes.',
+    descEng: 'iOS and Android. High-performance native & hybrid apps that scale mapping your user needs.',
+    labelEsp: 'Desde .5M COP',
+    labelEng: 'Apps from  USD',
+  }
+];
+
+const ServiceCard: React.FC<{
+  item: ServiceCustomItem;
+  index: number;
+  isVisible: boolean;
+  isEnglish: boolean;
+}> = ({ item, index, isVisible, isEnglish }) => {
+  const renderAnimation = () => {
+    switch (item.id) {
+      case 'web': return <WebAnimation />;
+      case 'mobile': return <MobileAnimation />;
+      case 'uiux': return <UXAnimation />;
+      case 'ai': return <AIAnimation />;
+      default: return null;
+    }
+  };
+
+  const numberFormat = (index + 1).toString().padStart(2, '0');
+  const title = isEnglish ? item.titleEng : item.titleEsp;
+  const desc = isEnglish ? item.descEng : item.descEsp;
+  const label = isEnglish ? item.labelEng : item.labelEsp;
+  const cta = isEnglish ? 'Get an estimate →' : 'Cotizar este servicio →';
+  const href = "#contact";
+
+  return (
+    <div
+      className="bg-[#0f1423] p-6 lg:p-8 rounded-[32px] shadow-[0_0_15px_rgba(30,58,138,0.2)] hover:shadow-[0_0_35px_rgba(59,130,246,0.3)] transition-all duration-500 transform border border-[#1e293b] hover:border-blue-900 h-full flex flex-col"
+    >
+      {/* Header (Labels y Títulos) */}
+      <div className="flex justify-between items-start mb-6 gap-4">
+        <div>
+           <span className="text-blue-500 font-mono text-sm block mb-1">{numberFormat}</span>
+           <h3 className="text-3xl font-bold text-white leading-tight">{title}</h3>
+        </div>
+        <div className="hidden sm:flex px-4 py-1.5 bg-blue-900/30 border border-blue-800 rounded-full shrink-0 text-center items-center">
+           <span className="text-blue-400 font-mono text-xs">{label}</span>
+        </div>
+      </div>
+
+      {/* Contenido animado (Centro dual-panel) */}
+      {renderAnimation()}
+
+      {/* Footer (Desc y CTA) */}
+      <div className="mt-auto pt-8">
+        <p className="text-gray-400 leading-relaxed mb-6 lg:text-lg">{desc}</p>
+        <Link href={href} className="text-blue-500 hover:text-blue-400 transition-colors font-semibold py-2">
+          {cta}
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 type ServicesSectionProps = {
   locale?: Locale;
@@ -81,65 +286,8 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ locale = 'es' }) => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isEnglish = locale === 'en';
 
-  const servicesData: ServiceItem[] = isEnglish
-    ? [
-        {
-          id: 'ai',
-          icon: 'ai',
-          title: 'AI Solutions',
-          description: 'AI Workflows and Agents to optimize processes and automate tasks.',
-        },
-        {
-          id: 'web',
-          icon: 'code',
-          title: 'Advanced Web Development',
-          description: 'Modern, fast and scalable web applications with the latest technologies and frameworks (Next.js, React, Node.js).',
-        },
-        {
-          id: 'mobile',
-          icon: 'mobile',
-          title: 'Native & Hybrid Mobile Apps',
-          description: 'Smooth and high-performance mobile experiences for Android, iOS and WebView.',
-        },
-        {
-          id: 'uiux',
-          icon: 'design',
-          title: 'Non-conventional UI/UX Design',
-          description: 'Attractive interfaces with a focus on user experience, beyond common trends and 100% customized.',
-        }
-      ]
-    : [
-        {
-          id: 'ai',
-          icon: 'ai',
-          title: 'Soluciones con IA',
-          description: 'Integracion de Flujos y Agentes IA para optimizar procesos y automatizar cualquier tarea.',
-        },
-        {
-          id: 'web',
-          icon: 'code',
-          title: 'Desarrollo Web Avanzado',
-          description: 'Aplicaciones Web modernas, rapidas y escalables con las ultimas tecnologias y frameworks (Next.js, React, Node.js).',
-        },
-        {
-          id: 'mobile',
-          icon: 'mobile',
-          title: 'Aplicaciones Moviles Nativas e Hibridas',
-          description: 'Experiencias moviles fluidas y de alto rendimiento Android, iOS y WebView.',
-        },
-        {
-          id: 'uiux',
-          icon: 'design',
-          title: 'Diseno UI/UX no convencional',
-          description: 'Interfaces atractivas con un enfoque en la experiencia del usuario, tendencias mas alla de lo comun y 100% personalizadas.',
-        }
-      ];
-
-  const serviceLinks = isEnglish ? serviceLinksEn : serviceLinksEs;
-
   useEffect(() => {
     const currentRefs = cardRefs.current;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -163,24 +311,30 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ locale = 'es' }) => {
     };
   }, []);
 
-
   return (
-    <section id="services" className="py-20 md:py-28 bg-brand-dark">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title">{isEnglish ? 'Our Services' : 'Nuestros Servicios'}</h2>
-        <p className="section-subtitle">
-          {isEnglish
-            ? 'We transform ideas into digital reality with your own personalized approach and brand identity.'
-            : 'Transformamos ideas en realidad digital con tu propio enfoque personalizado e identidad de marca.'}
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
+    <section id="services" className="py-20 md:py-28 bg-[#000412]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+          <div className="max-w-xl">
+            <span className="text-blue-500 font-mono text-sm mb-4 block">Las maravillas que hacemos, no es ego, es la realidad</span>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white whitespace-nowrap">
+              {isEnglish ? 'Our Services.' : 'Nuestros Servicios.'}
+            </h2>
+          </div>
+          <p className="text-gray-400 text-lg md:text-xl max-w-md mt-6 md:mt-0 text-left">
+            {isEnglish
+              ? 'We give solutions to your problems, and if you don\'t have any, we create one and solve it.'
+              : 'Le damos solución a tus problemas, y si no tienes problemas te creamos uno y lo solucionamos.'}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {servicesData.map((service, index) => (
-            <div key={service.id} id={`service-${service.id}`} ref={el => { cardRefs.current[index] = el; }}>
+            <div key={service.id} id={`service-${index}`} className="h-full" ref={el => { cardRefs.current[index] = el; }}>
               <ServiceCard
                 item={service}
-                href={serviceLinks[service.id]}
-                ctaLabel={isEnglish ? 'Learn more' : 'Conocer mas'}
-                isVisible={!!visibleCards[`service-${service.id}`]}
+                index={index}
+                isEnglish={isEnglish}
+                isVisible={!!visibleCards[`service-${index}`]}
               />
             </div>
           ))}

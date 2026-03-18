@@ -18,7 +18,7 @@ const config: Config = {
         'brand-muted-text': '#A0A0A0', // Texto secundario o silenciado
       },
       fontFamily: {
-        sans: ['"Exo 2"', 'sans-serif'], // Fuente futurista, asegúrate de importarla
+        sans: ['var(--font-space-grotesk)', 'sans-serif'], 
         mono: ['"Roboto Mono"', 'monospace'],
       },
       animation: {
