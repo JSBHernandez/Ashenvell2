@@ -55,7 +55,7 @@ const MacControls = () => (
 );
 
 const WebAnimation = () => {
-  const code = `<div class="hero">\n  <h1>Ashenvell,</h1>\n  <h2>te amo.</h2>\n  <button>Deploy &rarr;</button>\n</div>`;
+  const code = `<div class="hero">\n  <h1>Ashenvell,</h1>\n  <h2>te amo.</h2>\n  <button>Corazon &rarr;</button>\n</div>`;
   const { displayedText, isComplete } = useTypingEffect(code, 60);
 
   return (
@@ -75,7 +75,7 @@ const WebAnimation = () => {
         <div className="flex flex-col items-center text-center transition-opacity duration-500">
           <h1 className="text-white font-bold text-xl mb-1">Ashenvell,</h1>
           <h2 className="text-blue-400 font-semibold mb-4 text-sm">te amo.</h2>
-          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.6)]">Deploy &rarr;</button>
+          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.6)]">Corazon &rarr;</button>
         </div>
       </div>
     </div>
@@ -193,26 +193,26 @@ const servicesData: ServiceCustomItem[] = [
     titleEng: 'Landings & Web',
     descEsp: 'Aplicaciones y páginas web modernas, rápidas y escalables con los últimos frameworks.',
     descEng: 'Modern Apps and Web Pages, fast and scalable with the latest frameworks.',
-    labelEsp: 'Desde .5M COP',
-    labelEng: 'Sites from  USD',
+    labelEsp: 'Desde 250K COP',
+    labelEng: 'Sites from 100 USD',
   },
   {
     id: 'ai',
     titleEsp: 'Agentes IA & Automatización',
     titleEng: 'AI agents & Automation',
-    descEsp: 'Desligate de lo habitual y acelera procesos de negocio implementando flujos de inteligencia artificial y Agentes automatizados.',
+    descEsp: '¿Que una IA automatize tus procesos? No es un milagro, es Ashenvell en acción.',
     descEng: 'Detach from the usual and speed up business processes by deploying artificial intelligence flows and Agents.',
-    labelEsp: 'Agentes IA y Automatización',
-    labelEng: 'AI Agents & Scripts',
+    labelEsp: 'MANEJAMOS IA, SI',
+    labelEng: 'WE HANDLE AI, YES',
   },
   {
     id: 'uiux',
     titleEsp: 'Diseño UI/UX',
     titleEng: 'UI/UX Design',
-    descEsp: 'Interfaces que enamoran con un flujo de alta fidelidad 100% personalizados alejados de plantillas aburridas.',
-    descEng: 'Interfaces that spark love with zero boring templates and 100% customized workflows.',
-    labelEsp: 'Alta Fidelidad de Conversión',
-    labelEng: 'High-Fidelity Wireframing',
+    descEsp: 'Deja de usar esas plantillas genéricas de Wordpress, aquí te diseñamos pura calidad.',
+    descEng: 'Stop using boring Wordpress templates and get 100% customized interfaces.',
+    labelEsp: 'Buenos Diseños Here',
+    labelEng: 'Good Designs here',
   },
   {
     id: 'mobile',
@@ -220,8 +220,8 @@ const servicesData: ServiceCustomItem[] = [
     titleEng: 'Mobile Apps',
     descEsp: 'iOS y Android. Apps nativas e híbridas de alto rendimiento que escalan conectando con tus clientes.',
     descEng: 'iOS and Android. High-performance native & hybrid apps that scale mapping your user needs.',
-    labelEsp: 'Desde .5M COP',
-    labelEng: 'Apps from  USD',
+    labelEsp: 'Desde 2M COP',
+    labelEng: 'Apps from 1000 USD',
   }
 ];
 
@@ -230,7 +230,7 @@ const ServiceCard: React.FC<{
   index: number;
   isVisible: boolean;
   isEnglish: boolean;
-}> = ({ item, index, isVisible, isEnglish }) => {
+}> = ({ item, index, isEnglish }) => {
   const renderAnimation = () => {
     switch (item.id) {
       case 'web': return <WebAnimation />;
