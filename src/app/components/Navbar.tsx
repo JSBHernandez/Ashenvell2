@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -17,7 +17,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-
 type NavbarProps = {
   locale?: Locale;
 };
@@ -29,10 +28,10 @@ const Navbar: React.FC<NavbarProps> = ({ locale = "es" }) => {
   const homeHref = isEnglish ? "/en" : "/";
 
   const navItems: NavItem[] = [
-    { label: isEnglish ? "Home" : "Inicio", href: "#hero" },
-    { label: isEnglish ? "Services" : "Servicios", href: "#services" },
-    { label: isEnglish ? "Portfolio" : "Portafolio", href: "#portfolio" },
-    { label: isEnglish ? "Contact" : "Contacto", href: "#contact" },
+    { label: isEnglish ? "Home" : "Inicio", href: `${homeHref}#top` },
+    { label: isEnglish ? "Services" : "Servicios", href: `${homeHref}#services` },
+    { label: isEnglish ? "Portfolio" : "Portafolio", href: `${homeHref}#portfolio` },      
+    { label: isEnglish ? "Contact" : "Contacto", href: `${homeHref}#contact` },
   ];
 
   useEffect(() => {
@@ -47,52 +46,31 @@ const Navbar: React.FC<NavbarProps> = ({ locale = "es" }) => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-dark-secondary/80 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Link href={homeHref} className="flex items-center h-12">
-            <img
-              src="/alogo.png"
-              alt="Ashenvell Logo"
-              className="h-18 w-auto object-contain"
-            />
+            <img src="/alogo.png" alt="Ashenvell Logo" className="h-18 w-auto object-contain" />
           </Link>
 
-          {/* Navegación Desktop */}
           <div className="hidden md:flex space-x-6">
             {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-brand-light-text hover:text-brand-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
+              <Link key={item.label} href={item.href} className="text-brand-light-text hover:text-brand-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 {item.label}
               </Link>
             ))}
           </div>
 
-          {/* Botón Menú Móvil */}
           <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-brand-light-text hover:text-brand-blue-light focus:outline-none p-2"
-              aria-label={isEnglish ? "Open menu" : "Abrir menu"}
-            >
+            <button onClick={() => setIsOpen(!isOpen)} className="text-brand-light-text hover:text-brand-blue-light focus:outline-none p-2" aria-label={isEnglish ? "Open menu" : "Abrir menu"}>
               {isOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Menú Móvil Desplegable */}
       {isOpen && (
         <div className="md:hidden bg-brand-dark-secondary/95 backdrop-blur-sm pb-4">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
             {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsOpen(false)} // Cierra el menú al hacer clic
-                className="text-brand-light-text hover:text-brand-blue-light block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center"
-              >
+              <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)} className="text-brand-light-text hover:text-brand-blue-light block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
                 {item.label}
               </Link>
             ))}

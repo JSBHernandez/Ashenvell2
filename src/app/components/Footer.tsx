@@ -46,7 +46,8 @@ const Footer: React.FC<FooterProps> = ({ locale = 'es' }) => {
   const currentYear = new Date().getFullYear();
   const isEnglish = locale === 'en';
   const homeHref = isEnglish ? '/en' : '/';
-  const sectionHrefPrefix = isEnglish ? '/en' : '';
+  // Use absolute reference to homepage anchors
+  const sectionHrefPrefix = isEnglish ? '/en' : '/';
 
   return (
     <footer className="bg-gradient-to-b from-[#0D1117] to-[#0a0e13] border-t border-[#00E5FF]/20">

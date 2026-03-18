@@ -10,24 +10,24 @@ const WhyUsSection: React.FC<WhyUsSectionProps> = ({ locale = 'es' }) => {
 
   const stats = [
     {
-      tag: isEnglish ? '// no 2-hour meetings' : '// sin reuniones de 2 horas',
-      value: '40K+',
-      desc: isEnglish ? 'users in production' : 'usuarios en producción',
+      tag: isEnglish ? '// No 2-hour meetings' : '// Solo con una llamada',
+      value: '20K+',
+      desc: isEnglish ? 'Users in production' : 'Usuarios en producción',
     },
     {
-      tag: isEnglish ? '// no expensive middlemen' : '// sin intermediarios caros',
-      value: '2am',
-      desc: isEnglish ? 'deploys with no complaints' : 'deployamos sin quejarnos',
+      tag: isEnglish ? '// no expensive middlemen' : '// Somos los únicos intermediarios',
+      value: '24hrs',
+      desc: isEnglish ? 'Deploys with no complaints' : 'Deploy cada hora del día',
     },
     {
-      tag: isEnglish ? '// with real code' : '// con código real',
+      tag: isEnglish ? '// 100% real code' : '// 100% código con Next y React',
       value: '0',
-      desc: isEnglish ? 'PowerPoints delivered' : 'PowerPoints entregados',
+      desc: isEnglish ? 'PDFs delivered' : 'PDFs entregados',
     },
     {
-      tag: isEnglish ? '// pure execution' : '// pura ejecución',
+      tag: isEnglish ? '// pure execution' : '// A la medida exclusivamente',
       value: '100%',
-      desc: isEnglish ? 'real code, no fluff' : 'código real, sin relleno',
+      desc: isEnglish ? 'Real code, no fluff' : 'Código real, sin wordpress o plantillas',
     }
   ];
 
@@ -38,7 +38,7 @@ const WhyUsSection: React.FC<WhyUsSectionProps> = ({ locale = 'es' }) => {
         {/* Top Tag */}
         <div className="flex justify-start mb-8 lg:mb-12">
            <span className="text-blue-500 font-mono text-xs sm:text-sm">
-             {isEnglish ? '// why we exist' : '// por qué existimos'}
+             {isEnglish ? '// why we exist' : 'De verdad no vas a elegirnos? Impresionante...'}
            </span>
         </div>
 
@@ -48,12 +48,12 @@ const WhyUsSection: React.FC<WhyUsSectionProps> = ({ locale = 'es' }) => {
         {/* Main Title Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-28 lg:mb-40">
           <h2 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-500 leading-tight">
-            {isEnglish ? 'Serious agencies charge you for the PowerPoint.' : 'Las agencias serias te cobran el PowerPoint.'}
+            {isEnglish ? 'Serious agencies charge you for a PowerPoint.' : 'Las agencias serias se quedaron en el pasado.'}
           </h2>
           <h2 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
-            {isEnglish ? 'We charge you for the ' : 'Nosotros te cobramos el '}
+            {isEnglish ? 'We charge you for the ' : 'Nosotros cumplimos sin ninguna '}
             <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">
-              {isEnglish ? 'software.' : 'software.'}
+              {isEnglish ? 'software.' : 'cosa innecesaria.'}
             </span>
           </h2>
         </div>

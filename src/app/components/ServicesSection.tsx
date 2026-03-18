@@ -184,6 +184,8 @@ type ServiceCustomItem = {
   descEng: string;
   labelEsp: string;
   labelEng: string;
+  hrefEsp: string;
+  hrefEng: string;
 };
 
 const servicesData: ServiceCustomItem[] = [
@@ -195,6 +197,8 @@ const servicesData: ServiceCustomItem[] = [
     descEng: 'Modern Apps and Web Pages, fast and scalable with the latest frameworks.',
     labelEsp: 'Desde 250K COP',
     labelEng: 'Sites from 100 USD',
+    hrefEsp: '/desarrollo-web',
+    hrefEng: '/en/web-development',
   },
   {
     id: 'ai',
@@ -204,15 +208,19 @@ const servicesData: ServiceCustomItem[] = [
     descEng: 'Detach from the usual and speed up business processes by deploying artificial intelligence flows and Agents.',
     labelEsp: 'MANEJAMOS IA, SI',
     labelEng: 'WE HANDLE AI, YES',
+    hrefEsp: '/soluciones-ia',
+    hrefEng: '/en/ai-solutions',
   },
   {
     id: 'uiux',
     titleEsp: 'Diseño UI/UX',
     titleEng: 'UI/UX Design',
-    descEsp: 'Deja de usar esas plantillas genéricas de Wordpress, aquí te diseñamos pura calidad.',
+    descEsp: 'Deja de usar esas plantillas genéricas de Wordpress, aquí te diseñamos todo a la medida.',
     descEng: 'Stop using boring Wordpress templates and get 100% customized interfaces.',
     labelEsp: 'Buenos Diseños Here',
     labelEng: 'Good Designs here',
+    hrefEsp: '/diseno-ui-ux',
+    hrefEng: '/en/ui-ux-design',
   },
   {
     id: 'mobile',
@@ -222,6 +230,8 @@ const servicesData: ServiceCustomItem[] = [
     descEng: 'iOS and Android. High-performance native & hybrid apps that scale mapping your user needs.',
     labelEsp: 'Desde 2M COP',
     labelEng: 'Apps from 1000 USD',
+    hrefEsp: '/aplicaciones-moviles',
+    hrefEng: '/en/mobile-apps',
   }
 ];
 
@@ -245,8 +255,8 @@ const ServiceCard: React.FC<{
   const title = isEnglish ? item.titleEng : item.titleEsp;
   const desc = isEnglish ? item.descEng : item.descEsp;
   const label = isEnglish ? item.labelEng : item.labelEsp;
-  const cta = isEnglish ? 'Get an estimate →' : 'Cotizar este servicio →';
-  const href = "#contact";
+  const cta = isEnglish ? 'More information →' : 'Más información →';
+  const href = isEnglish ? item.hrefEng : item.hrefEsp;
 
   return (
     <div
