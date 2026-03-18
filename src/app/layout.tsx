@@ -30,7 +30,7 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Ashenvell | Innovacion y Desarrollo Digital",
+    default: "Ashenvell | AGENTES IA AQUI",
     template: `%s | ${SITE_NAME}`,
   },
   description:

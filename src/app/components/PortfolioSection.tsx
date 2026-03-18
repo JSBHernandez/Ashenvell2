@@ -119,43 +119,52 @@ const PortfolioSection: React.FC<PortfolioSectionProps> = ({ locale = 'es' }) =>
       ];
 
   return (
-    <section id="portfolio" className="py-20 bg-gradient-to-b from-[#0D1117] to-[#161B22]">
-      <div className="container mx-auto px-4">
-        <h2 className="section-title">{isEnglish ? 'Our Work' : 'Nuestro Trabajo'}</h2>
-        <p className="section-subtitle">
-          {isEnglish
-            ? 'Projects that demonstrate our passion for technology and cutting-edge design. Want to be here? Contact us.'
-            : 'Proyectos que demuestran nuestra pasion por la tecnologia y el diseno de vanguardia. Quieres estar aqui? Contactanos.'}
-        </p>
+    <section id="portfolio" className="py-20 md:py-28 bg-[#000412]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+          <div className="max-w-xl text-left">
+            <span className="text-blue-500 font-mono text-sm mb-4 block">
+              {isEnglish ? '// selected projects' : '// Sigues bajando y no nos escribes? Contáctanos'}
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white whitespace-nowrap">
+              {isEnglish ? 'Our Work.' : 'Nuestro Trabajo.'}
+            </h2>
+          </div>
+          <p className="text-gray-400 text-lg md:text-xl max-w-md mt-6 md:mt-0 text-left md:text-right">
+            {isEnglish
+              ? 'Some projects we worked on. Yours NEEDS to be here.'
+              : 'Algunos proyectos en los que hemos trabajado. Al tuyo le urge estar acá.'}
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {items.map((item) => (
             <a
               key={item.title + item.href}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#161B22] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+              className="group block bg-[#0f1423] p-5 lg:p-8 rounded-[32px] shadow-[0_0_15px_rgba(30,58,138,0.2)] hover:shadow-[0_0_35px_rgba(59,130,246,0.3)] transition-all duration-500 transform border border-[#1e293b] hover:border-blue-900 cursor-pointer flex flex-col h-full"
             >
-              <div className="relative h-80 overflow-hidden group">
+              <div className="relative h-64 sm:h-80 rounded-[20px] overflow-hidden mb-8 border border-[#1e293b] group-hover:border-blue-900/50 transition-colors duration-500">
                 <Image
                   src={item.image}
                   alt={item.alt}
                   width={800}
                   height={600}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 50vw"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   quality={90}
                 />
                 <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
               </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-[#60A5FA] mb-2">{item.title}</h3>
-                <p className="text-gray-400 mb-4">{item.description}</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="px-2 mt-auto flex flex-col flex-1">
+                <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors leading-tight">{item.title}</h3>
+                <p className="text-gray-400 leading-relaxed mb-8 lg:text-lg flex-1">{item.description}</p>
+                <div className="flex flex-wrap gap-3">
                   {item.tags.map((tag) => (
-                    <span key={`${item.title}-${tag}`} className={`text-xs bg-gradient-to-r ${item.gradient} text-white px-3 py-1 rounded-full font-semibold`}>
+                    <span key={`${item.title}-${tag}`} className="text-xs font-mono px-4 py-1.5 bg-blue-900/30 border border-blue-800/60 rounded-full text-blue-300">
                       {tag}
                     </span>
                   ))}

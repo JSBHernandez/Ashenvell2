@@ -43,7 +43,7 @@ export default function CustomCursor() {
     const animId = requestAnimationFrame(animate);
 
     document.body.style.cursor = "none";
-    let styleTag = document.createElement("style");
+    const styleTag = document.createElement("style");
     styleTag.id = "custom-cursor-style";
     styleTag.innerHTML = `
       * { cursor: none !important; }
